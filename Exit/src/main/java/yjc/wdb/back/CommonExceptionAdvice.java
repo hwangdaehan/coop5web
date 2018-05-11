@@ -12,7 +12,10 @@ public class CommonExceptionAdvice {
 	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView errorModelAndView(Exception e) {
-		logger.info(e.toString());
+		/**
+		 * 이 클래스는 모든 오류를 담당합니다.
+		 */
+		
 		logger.warn(e.toString());
 		logger.error(e.toString());
 		
