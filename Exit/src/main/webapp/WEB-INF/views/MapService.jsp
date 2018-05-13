@@ -330,9 +330,9 @@ th {
 					<div class="uploadedList"></div>
 					<input type="hidden" id="Dbid" name="bid"> <input
 						type="hidden" name="drawing" id="data" />
-					<h5 style="text-align: center">
-						층수&nbsp;&nbsp;&nbsp;<select name="floor"><option
-								value="1">1</option>
+					<h5 style="text-align: center">층수&nbsp;&nbsp;&nbsp;
+						<select name="floor">
+							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
 							<option value="4">4</option>
