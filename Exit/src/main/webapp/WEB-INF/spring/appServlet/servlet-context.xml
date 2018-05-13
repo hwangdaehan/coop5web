@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="yjc.wdb.back" />
+	<context:component-scan base-package="yjc.wdb.back, yjc.wdb.persistence, yjc.wdb.service" />
 	
 	
 	

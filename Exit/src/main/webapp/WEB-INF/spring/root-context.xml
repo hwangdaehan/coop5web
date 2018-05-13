@@ -17,10 +17,14 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="org.mariadb.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mariadb://52.78.222.250:3306/coop5" />
+		<!--
+		<property name="url" value="jdbc:mariadb://52.78.222.250:3306/coop5" />
 		<property name="username" value="guqwhwoans" />
 		<property name="password" value="1111" />
+		-->
+		<property value="jdbc:mariadb://localhost:3306/exit" name="url"/>
+		<property value="root" name="username"/>
+		<property value="1111" name="password"/>
 	</bean>
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -37,11 +41,11 @@
 			ref="sqlSessionFactory" />
 	</bean>
 
-	<!-- <bean id="multipartResolver" -->
-	<!-- class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
-	<!-- 서버에 최대 파일을 업로드하는 이미지 사이즈 크기 10mb로 지정(byte단위) -->
-	<!-- <property name="maxUploadSize" value="100000000" /> -->
-	<!-- <property name="maxInMemorySize" value="100000000" /> -->
-	<!-- </bean> -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+	id="multipartResolver">
+		<!-- 서버에 최대 파일을 업로드하는 이미지 사이즈 크기 10mb로 지정(byte단위) -->
+		<property value="100000000" name="maxUploadSize" />
+		<property value="100000000" name="maxInMemorySize" />
+	</bean>
 
 </beans>

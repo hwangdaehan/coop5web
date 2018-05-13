@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-<!-- 		<typeAlias alias ="Building" type="yjc.wdb.domain.Building"/> -->
+		<typeAlias type="yjc.wdb.domain.building" alias="building" />
+		<typeAlias type="yjc.wdb.domain.b_floor" alias="b_floor" />
 	</typeAliases>
 </configuration>
