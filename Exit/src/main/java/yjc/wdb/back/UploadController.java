@@ -95,7 +95,7 @@ public class UploadController {
 
     // 6. �̹��� ǥ�� ����
     @ResponseBody // view�� �ƴ� data����
-    @RequestMapping("displayFile")
+    @RequestMapping("MapService/displayFile")
     public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
         // ������ ������ �ٿ�ε��ϱ� ���� ��Ʈ��
         InputStream in = null; //java.io

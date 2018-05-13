@@ -26,7 +26,7 @@ daum.maps.event.addListener(map, 'click', function(mouseEvent) {
             
             var content ='<div class="btn">' +  
             			'<a href="#list" id="Blistbtn">보기</a>'+
-						'<a href="#register" id="Bregbtn">건물 정보 등록</a>' +
+						'<a href="#register" id="Bregbtn">건물정보등록</a>' +
 						'</div>' +
             			'<div class="bAddr">' + 
                             detailAddr + 

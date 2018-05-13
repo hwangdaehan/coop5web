@@ -80,13 +80,62 @@ th {
 	width: 400px;
 	height: 30px;
 	position: absolute;
-	top: 50%;
-	left: 68%;
+	top: 20%;
+	left: 88%;
 	margin-top: -35px;
 	margin-left: -100px;
 	padding: 10px;
 	z-index: 1000;
 }
+
+#domyunselect {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -35px;
+	margin-left: -100px;
+	padding: 10px;
+	z-index: 1000;
+}
+
+div a {
+	text-decoration :none;
+	 background-color: #f44336;
+    color: white;
+    padding: 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.fileDrop {
+	border :1px solid black;
+	height :200px;
+}
+
+
+a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#submit {
+	 background-color: #f44336; 
+    border: none;
+    color: white;
+    padding: 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+  
 </style>
 <meta charset="utf-8">
 <title>지도 생성하기</title>
@@ -134,6 +183,12 @@ th {
 		});
 		$("#domyuncancel").click(function(){
 			$("#modDiv").hide("slow");	
+		});
+		$("#domyunsee").click(function(){
+			$("#domyunselect").show("slow");
+		});
+		$("#domyunselcancel").click(function(){
+			$("#domyunselect").hide("slow");	
 		});
 	});
 	
@@ -266,14 +321,13 @@ th {
 				</div>
 
 				<div class="modal-footer">
-					<input type="submit" value="저장"> <a href="#close"
-						class="btn btn" style="margin-left: 15px">닫기</a>
-
+					<input type="submit" value="완료" id="submit"> 
+					<a href="#close" class="btn btn" style="margin-left: 15px">닫기</a>
 				</div>
 			</form>
 		</div>
 	</div>
-
+ 
 
 
 
@@ -305,18 +359,30 @@ th {
 		</div>
 	</div>
 
+ 	
+<!-- 		도면 버튼들 -->
+
 	<div id="modDiv" style="display: none;">
-		<button id="domyunselect">도면보기</button>
+		<a href="#domyunselect" id="domyunsee">도면보기</a>
 		<a href="#domyun" id="domyuninsert">도면등록</a>
-		<button id="domyunupdate">도면수정</button>
-		<button id="domyuncancel">취소</button>
+		<a href="domyunupdate">도면수정</a>
+		<a id="domyuncancel">취소</a>
 	</div>
+<!-- 			도면 버튼 끝 -->
+
+<!-- 		도면 보여주는 창 -->
+	<div id="domyunselect" style="display:none;">
+		<img src="MapService/displayFile?fileName=/2018/05/13/s_b6e04acf-14bd-45bb-bf75-2c88d74f9495_다운로드.jpg" width="500px" height="300px">
+		<a id="domyunselcancel">취소</a>
+	</div>
+<!-- 			도면 보여주는 창 끝 -->
 
 
+<!-- 		도면 입력 창 -->
 	<div id="domyun" class="content">
 		<div id="modalchang">
 			<div class="modal-header">
-				<h1>도면 입력</h1>
+				<h3 style="text-align:center">도면 입력</h3>
 			</div>
 			<form action="Domyun" method="post">
 				<div class="modal-body">
@@ -342,13 +408,15 @@ th {
 
 					<div class="modal-footer">
 						<a href="#close" class="btn btn-danger" style="margin-left: 15px">닫기</a>
-						<input type="submit" style="margin-left: 15px" value="완료" />
+						<input type="submit" style="margin-left: 15px" value="완료" id="submit" />
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	<!-- 보기 버튼 모달창  끝-->
+	<!-- 도면 입력 모달창  끝-->
+	
+	
 	<div id="map"
 		style="width: 100%; height: 1000px; position: relative; overflow: hidden;"></div>
 	<div class="hAddr">
