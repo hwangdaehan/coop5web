@@ -29,7 +29,8 @@ public class UploadController {
     // xml�� ������ ���ҽ� ����
     // bean�� id�� uploadPath�� �±׸� ����
 //    @Resource(name="uploadPath")
-    String uploadPath = "C:\\Shopping";
+    //String uploadPath = "C:\\Shopping";
+	String uploadPath = File.separator + "home" + File.separator + "ubuntu" + File.separator + "Shopping" + File.separator;
 
     // ���ε� �帧 : ���ε� ��ưŬ�� => �ӽõ��丮�� ���ε�=> ������ ���丮�� ���� => ���������� file�� ����
 

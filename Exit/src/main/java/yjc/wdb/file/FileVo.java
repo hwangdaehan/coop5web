@@ -14,13 +14,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Component("FileVo")
 public class FileVo {
    // 파일이 저장 될 디렉토리를 지정한다.
-   private static final String filePath = "C:\\Shopping\\";
+	//리눅스 경로 /home/ubuntu/Shopping/
+   private static final String filePath = File.separator + "home" + File.separator + "ubuntu" + File.separator + "Shopping" + File.separator;
 
    public String addfile(HttpServletRequest req) throws Exception {
       MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) req;
       // 파일을 담을곳에 Iterator 객체에 파일 이름을 가져온당.
       Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-
+      
       // 폴더가 없다면 생성 해준다.
 		File file = new File(filePath);
 		if (file.exists() == false) {

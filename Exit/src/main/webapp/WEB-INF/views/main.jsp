@@ -464,7 +464,7 @@ input[type=submit]:hover {
 	</div>
 	<div id="mid_menu">
 		<div style="float: left; width: 20%;">
-			<a href="NewFile"> <img src="./resources/img/map_icon.png" width="120"
+			<a href="MapService"> <img src="./resources/img/map_icon.png" width="120"
 				height="120" id="img_map">
 			</a>
 
