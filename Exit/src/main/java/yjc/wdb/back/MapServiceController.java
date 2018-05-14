@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +50,13 @@ public class MapServiceController {
 		
 		
 		return service.listAll();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="ImgSelect", method= RequestMethod.GET)
+	public b_floor ImgSelect(b_floor b)throws Exception {
+		System.out.println("출력값"+service.ImgSelect(b));		
+		return service.ImgSelect(b);
 	}
 
 }

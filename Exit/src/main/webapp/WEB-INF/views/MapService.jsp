@@ -3,6 +3,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta charset="utf-8">
+<title>지도 생성하기</title>
+<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 .title {
 	font-weight: bold;
@@ -54,18 +62,19 @@
 .content>div {
 	position: absolute;
 	top: 20%;
-	left: 80%;
-	width: 20%;
-	height: 50%;
-	padding: 16px;
+	left: 75%;
+	width: 25%;
+	height: 60%;
+	padding: 2px 5px #f44336 ;
 	border: 1px solid gray;
 	background-color: white;
 	overflow: auto;
 	z-index: 2;
 }
-
+ 
 td	p {
 	font-size: x-small;
+	text-align :center;
 }
 
 th {
@@ -125,7 +134,7 @@ a:link, a:visited {
     display: inline-block;
 }
 
-#submit {
+#submit, #submit2 {
 	 background-color: #f44336; 
     border: none;
     color: white;
@@ -135,17 +144,16 @@ a:link, a:visited {
     display: inline-block;
     font-size: 16px;
 }
-  
+ 
+
+#Lbname {
+	color: red;
+
+}
+#Lbname:hover {
+	color: blue;
+} 
 </style>
-<meta charset="utf-8">
-<title>지도 생성하기</title>
-<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="resources/css/MapApi.css"></script>	 -->
 </head>
 <script>
 	
@@ -163,7 +171,7 @@ a:link, a:visited {
 					
 					$("#Lbname")
 							.append(
-									"<p>"+data[i].bname+"</p>");
+									"<p id='b"+i+"'>"+data[i].bname+"</p>");
 					$("#Lnew").append(
 							"<p>" + data[i].addr_new
 									+ "</p>");
@@ -174,13 +182,39 @@ a:link, a:visited {
 							"<p>" + data[i].tel
 									+ "</p>");
 					$("#Dbid").val(data[i].bid);
+					$("#Fbid").val(data[i].bid);
 					
 				}
 			}
 		});
-		$("#Lbname").click(function(){
+		
+		
+		$("#submit2").click(function(){
+			$.ajax({
+				url :"ImgSelect",
+				data:{
+					bid:$("#Dbid").val(),
+					floor: $("#Dfloor").val()
+				},
+				success:function(data) {
+					var str="";
+					alert(data.drawing);
+					  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='600px;'height='300px;'>";
+					  $("#imgCan").append(str);
+				}
+			});
+		});
+		
+		
+		
+		$(document.body).on("click", "#Lbname p", function(){
+			$("#modDiv").show("slow");
+		});
+    
+		$("#modBtn").click(function(){
 			$("#modDiv").show("slow");	
 		});
+		
 		$("#domyuncancel").click(function(){
 			$("#modDiv").hide("slow");	
 		});
@@ -190,6 +224,11 @@ a:link, a:visited {
 		$("#domyunselcancel").click(function(){
 			$("#domyunselect").hide("slow");	
 		});
+		
+		$("#submit").click(function(){
+				alert("건물 데이터가 저장되었습니다.");
+		});
+		
 	});
 	
 	
@@ -302,7 +341,7 @@ a:link, a:visited {
 	<div id="register" class="content">
 		<div>
 			<div class="modal-header">
-				<h3 style="display: inline-block">건물 등록</h3>
+				<p style="text-align:center;font-weight:bold;">건물 등록</p>
 			</div>
 			<form action="Bdata" method="POST">
 				<div id="menu" class="modal-body">
@@ -315,9 +354,9 @@ a:link, a:visited {
 					<p id="bNameText">건물명</p>
 					<input type="text" name="bname" id="test4" class="w3-input" />
 				</div>
-				<div id="axisData" style="display: none">
-					<input type="text" id="xaxis" name="xaxis" /> <input type="text"
-						id="yaxis" name="yaxis" />
+				<div id="axisData" style="display:none;">
+					<input type="text" id="xaxis" name="xaxis" /> 
+					<input type="text" id="yaxis" name="yaxis" />
 				</div>
 
 				<div class="modal-footer">
@@ -328,12 +367,14 @@ a:link, a:visited {
 		</div>
 	</div>
  
-
+ 
 
 
 	<div id="list" class="content">
 		<div class="ModalList">
-
+			<div class="modal-footer">
+				<p style="text-align:center;font-weight:bold;">건물리스트</p>
+			</div>
 			<table>
 				<tr>
 					<th>글 번호</th>
@@ -372,8 +413,21 @@ a:link, a:visited {
 
 <!-- 		도면 보여주는 창 -->
 	<div id="domyunselect" style="display:none;">
-		<img src="MapService/displayFile?fileName=/2018/05/13/s_b6e04acf-14bd-45bb-bf75-2c88d74f9495_다운로드.jpg" width="500px" height="300px">
-		<a id="domyunselcancel">취소</a>
+			<form action="ImgSelect" method="GET">
+				<input type="text" id="Fbid" name="bid">
+				<select name="floor">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>층
+			<input type="button" id="submit2" value="보기">
+			<a id="domyunselcancel">취소</a>
+			<div id="imgCan" style="width:300px;height:300px;">	
+			</div>
+		
+		</form>
 	</div>
 <!-- 			도면 보여주는 창 끝 -->
 
@@ -382,7 +436,7 @@ a:link, a:visited {
 	<div id="domyun" class="content">
 		<div id="modalchang">
 			<div class="modal-header">
-				<h3 style="text-align:center">도면 입력</h3>
+				<h5 style="text-align:center">도면 입력</h5>
 			</div>
 			<form action="Domyun" method="post">
 				<div class="modal-body">
@@ -394,10 +448,10 @@ a:link, a:visited {
 
 					<!-- 업로드된 파일 목록 -->
 					<div class="uploadedList"></div>
-					<input type="hidden" id="Dbid" name="bid"> <input
+					<input type="text" id="Dbid" name="bid"> <input
 						type="hidden" name="drawing" id="data" />
 					<h5 style="text-align: center">층수&nbsp;&nbsp;&nbsp;
-						<select name="floor">
+						<select name="floor" id="Dfloor">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>

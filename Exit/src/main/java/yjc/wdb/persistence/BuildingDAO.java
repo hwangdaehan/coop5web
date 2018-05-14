@@ -15,4 +15,6 @@ public interface BuildingDAO {
 	
 	public List<building> listAll() throws Exception;
 	
+	public b_floor ImgSelect(b_floor b) throws Exception;
+	
 }

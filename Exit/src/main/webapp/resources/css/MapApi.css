@@ -1,79 +1,141 @@
-   
-    .map_wrap {position:relative;width:100%;height:350px;}
-    .title {font-weight:bold;display:block;}
-    .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
-    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+.title {
+	font-weight: bold;
+	display: block;
+}
 
-    
-    #b_list ,#b_insert,#b_domyun {
-    		margin-left :10px;
-    }
-    
-    #b_Addr {
-    	width :300px;
-    	height :300px;
-    }
-    
+.hAddr {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+}
+
+#centerAddr {
+	display: block;
+	margin-top: 2px;
+	font-weight: normal;
+}
+
+#domyun, #list, #register {
+	margin-left: 10px;
+}
+
 .content {
 	position: fixed;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.8);
+	background: rgba(0, 0, 0, 0);
 	opacity: 0;
 	-webkit-transition: opacity 400ms ease-in;
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
 	pointer-events: none;
+	z-index: 2;
 }
 
 .content:target {
 	opacity: 1;
 	pointer-events: auto;
+	z-index: 2;
 }
 
 .content>div {
 	position: absolute;
 	top: 20%;
-	left: 15%;
-	width: 70%;
-	height: 70%;
-	padding: 16px;
+	left: 75%;
+	width: 25%;
+	height: 60%;
+	padding: 2px 5px #f44336 ;
 	border: 1px solid gray;
 	background-color: white;
 	overflow: auto;
+	z-index: 2;
+}
+ 
+td	p {
+	font-size: x-small;
+	text-align :center;
 }
 
-
-
-.content1 {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.8);
-	opacity: 0;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
-	pointer-events: none;
+th {
+	font-size: small;
 }
 
-.content1:target {
-	opacity: 1;
-	pointer-events: auto;
+#Blistbtn, #Bregbtn {
+	margin-left: 10px;
 }
 
-.content1>div {
+#modDiv {
+	width: 400px;
+	height: 30px;
 	position: absolute;
 	top: 20%;
-	left: 15%;
-	width: 70%;
-	height: 70%;
-	padding: 16px;
-	border: 1px solid gray;
-	background-color: white;
-	overflow: auto;
+	left: 88%;
+	margin-top: -35px;
+	margin-left: -100px;
+	padding: 10px;
+	z-index: 1000;
 }
+
+#domyunselect {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -35px;
+	margin-left: -100px;
+	padding: 10px;
+	z-index: 1000;
+}
+
+div a {
+	text-decoration :none;
+	 background-color: #f44336;
+    color: white;
+    padding: 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.fileDrop {
+	border :1px solid black;
+	height :200px;
+}
+
+
+a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#submit, #submit2 {
+	 background-color: #f44336; 
+    border: none;
+    color: white;
+    padding: 3px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+ 
+
+#Lbname {
+	color: red;
+
+}
+#Lbname:hover {
+	color: blue;
+} 

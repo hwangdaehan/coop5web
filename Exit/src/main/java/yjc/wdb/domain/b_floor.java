@@ -5,23 +5,23 @@ import java.sql.Timestamp;
 public class b_floor {
 
 	
-	private int floor;
-	private int bid;
+	private String floor;
+	private String bid;
 	private String drawing;
 	private Timestamp regdate;
 	private Timestamp moddate;
 	
 	
-	public int getFloor() {
+	public String getFloor() {
 		return floor;
 	}
-	public void setFloor(int floor) {
+	public void setFloor(String floor) {
 		this.floor = floor;
 	}
-	public int getBid() {
+	public String getBid() {
 		return bid;
 	}
-	public void setBid(int bid) {
+	public void setBid(String bid) {
 		this.bid = bid;
 	}
 	public String getDrawing() {

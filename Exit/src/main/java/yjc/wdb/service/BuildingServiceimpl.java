@@ -37,6 +37,14 @@ public class BuildingServiceimpl implements BuildingService {
 	public List<building> listAll() throws Exception {
 		return dao.listAll();
 	}
+
+
+	@Override
+	public b_floor ImgSelect(b_floor b) throws Exception {
+		return dao.ImgSelect(b);
+	}
+
+
 	}
 
 	

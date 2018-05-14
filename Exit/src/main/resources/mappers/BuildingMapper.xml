@@ -16,4 +16,9 @@
 		select * from building
 		order by bid desc
 	</select>
+	
+	<select id="ImgSelect" resultType="b_floor">
+		select drawing from b_floor
+			where floor=#{floor} and bid=#{bid}
+	</select>
 </mapper>

@@ -1,16 +1,15 @@
 package yjc.wdb.persistence;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
-
 
 @Repository
 public class BuildingDAOimpl implements BuildingDAO {
@@ -26,14 +25,21 @@ public class BuildingDAOimpl implements BuildingDAO {
 
 	@Override
 	public void dcreate(b_floor floor) throws Exception {
-		session.insert(NAMESPACE+".dcreate", floor);
-		
+		session.insert(NAMESPACE + ".dcreate", floor);
+
 	}
 
 	@Override
 	public List<building> listAll() throws Exception {
-		List<building> list=session.selectList(NAMESPACE+".listAll");
+		List<building> list = session.selectList(NAMESPACE + ".listAll");
 		return list;
+	}
+
+	@Override
+	public b_floor ImgSelect(b_floor b) throws Exception {
+		b_floor drawing = session.selectOne(NAMESPACE + ".ImgSelect", b);
+		System.out.println(drawing);
+		return drawing;
 	}
 
 }
