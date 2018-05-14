@@ -17,14 +17,14 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="org.mariadb.jdbc.Driver" />
-		<!--
+		
 		<property name="url" value="jdbc:mariadb://52.78.222.250:3306/coop5" />
 		<property name="username" value="guqwhwoans" />
 		<property name="password" value="1111" />
-		-->
-		<property value="jdbc:mariadb://localhost:3306/exit" name="url"/>
-		<property value="root" name="username"/>
-		<property value="1111" name="password"/>
+		
+<!-- 		<property value="jdbc:mariadb://localhost:3306/exit" name="url"/> -->
+<!-- 		<property value="root" name="username"/> -->
+<!-- 		<property value="1111" name="password"/> -->
 	</bean>
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
