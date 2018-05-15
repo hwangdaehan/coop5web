@@ -198,7 +198,7 @@ a:link, a:visited {
 				},
 				success:function(data) {
 					var str="";
-					alert(data.drawing);
+					//alert(data.drawing);
 					  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='600px;'height='300px;'>";
 					  $("#imgCan").append(str);
 				}
@@ -414,7 +414,7 @@ a:link, a:visited {
 <!-- 		도면 보여주는 창 -->
 	<div id="domyunselect" style="display:none;">
 			<form action="ImgSelect" method="GET">
-				<input type="text" id="Fbid" name="bid">
+				<input type="text" id="Fbid" name="bid" style="display: none">
 				<select name="floor">
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -448,8 +448,8 @@ a:link, a:visited {
 
 					<!-- 업로드된 파일 목록 -->
 					<div class="uploadedList"></div>
-					<input type="text" id="Dbid" name="bid"> <input
-						type="hidden" name="drawing" id="data" />
+					<input type="text" id="Dbid" name="bid" style="display: none">
+					<input type="hidden" name="drawing" id="data" />
 					<h5 style="text-align: center">층수&nbsp;&nbsp;&nbsp;
 						<select name="floor" id="Dfloor">
 							<option value="1">1</option>

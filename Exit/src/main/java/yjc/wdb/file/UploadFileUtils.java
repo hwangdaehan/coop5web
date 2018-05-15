@@ -14,7 +14,13 @@ import org.springframework.util.FileCopyUtils;
 public class UploadFileUtils {
 
     public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
-        // UUID 발급
+        
+    	File file = new File(uploadPath);
+		if (file.exists() == false) {
+			file.mkdirs();
+		}
+    	
+    	// UUID 발급
         UUID uuid = UUID.randomUUID();
         // 저장할 파일명 = UUID + 원본이름
         String savedName = uuid.toString() + "_" + originalName;
