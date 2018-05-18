@@ -89,8 +89,8 @@ th {
 	width: 400px;
 	height: 30px;
 	position: absolute;
-	top: 20%;
-	left: 88%;
+	top: 22%;
+	left: 88%; 
 	margin-top: -35px;
 	margin-left: -100px;
 	padding: 10px;
@@ -125,14 +125,14 @@ div a {
 }
 
 
-a:link, a:visited {
-    background-color: #f44336;
-    color: white;
-    padding: 3px 2px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
+/* a:link, a:visited { */
+/*     background-color: #f44336; */
+/*     color: white; */
+/*     padding: 3px 2px; */
+/*     text-align: center; */
+/*     text-decoration: none; */
+/*     display: inline-block; */
+/* } */
 
 #submit, #submit2 {
 	 background-color: #f44336; 
@@ -165,13 +165,13 @@ a:link, a:visited {
 			success : function(data) {
 
 				for (var i = 0; i < data.length; i++) {
-					$("#Lbid")
+					/*$("#Lbid")
 							.append(
 									"<p>"+data[i].bid+"</p>");
 					
 					$("#Lbname")
 							.append(
-									"<p id='b"+i+"'>"+data[i].bname+"</p>");
+									"<p>"+data[i].bname+"</p>");
 					$("#Lnew").append(
 							"<p>" + data[i].addr_new
 									+ "</p>");
@@ -182,8 +182,9 @@ a:link, a:visited {
 							"<p>" + data[i].tel
 									+ "</p>");
 					$("#Dbid").val(data[i].bid);
-					$("#Fbid").val(data[i].bid);
-					
+					$("#Fbid").val(data[i].bid);*/
+					$("#J1").append("<tr><td class='bid'>"+data[i].bid+"</td><td id='Lbname'>"+data[i].bname+"</td><td>" + data[i].addr_new + "</td><td>" + data[i].addr_old + "</td><td>" + data[i].tel+ "</td></tr>");
+			
 				}
 			}
 		});
@@ -194,7 +195,7 @@ a:link, a:visited {
 				url :"ImgSelect",
 				data:{
 					bid:$("#Dbid").val(),
-					floor: $("#Dfloor").val()
+					floor: $("#Dfloor option:selected").val()
 				},
 				success:function(data) {
 					var str="";
@@ -207,14 +208,13 @@ a:link, a:visited {
 		
 		
 		
-		$(document.body).on("click", "#Lbname p", function(){
+		$(document.body).on("click", "#Lbname", function(){
 			$("#modDiv").show("slow");
-		});
-    
-		$("#modBtn").click(function(){
-			$("#modDiv").show("slow");	
-		});
-		
+			$("#Fbid").val("");
+			$("#Dbid").val("");
+			$("#Fbid").val($(this).parent().children(".bid").text());
+			$("#Dbid").val($(this).parent().children(".bid").text());
+		});	
 		$("#domyuncancel").click(function(){
 			$("#modDiv").hide("slow");	
 		});
@@ -265,8 +265,8 @@ a:link, a:visited {
                     str += "<img src='MapService/displayFile?fileName="+data+"'></a>";
       
                     // data = db에 저장해야할 경로 이름
-                    $("#data").val(data);
-          			
+                    $("#data").val(getImageLink(data));
+      				alert(getImageLink(data));    			
              	
                 // 일반파일이면 다운로드링크
                 } else { 
@@ -375,21 +375,13 @@ a:link, a:visited {
 			<div class="modal-footer">
 				<p style="text-align:center;font-weight:bold;">건물리스트</p>
 			</div>
-			<table>
+			<table id="J1">
 				<tr>
 					<th>글 번호</th>
 					<th>건물이름</th>
 					<th>도로명주소</th>
 					<th>지번주소</th>
 					<th>전화번호</th>
-				</tr>
-				<tr>
-					<td id="Lbid"></td>
-					<td id="Lbname"></td>
-					<td id="Lnew"></td>
-					<td id="Lold"></td>
-					<td id="Ltel"></td>
-
 				</tr>
 			</table>
 			<div class="modal-footer">
@@ -406,22 +398,32 @@ a:link, a:visited {
 	<div id="modDiv" style="display: none;">
 		<a href="#domyunselect" id="domyunsee">도면보기</a>
 		<a href="#domyun" id="domyuninsert">도면등록</a>
-		<a href="domyunupdate">도면수정</a>
 		<a id="domyuncancel">취소</a>
 	</div>
 <!-- 			도면 버튼 끝 -->
 
+
+
+
+
+
+
+
+
+
+
 <!-- 		도면 보여주는 창 -->
 	<div id="domyunselect" style="display:none;">
 			<form action="ImgSelect" method="GET">
-				<input type="text" id="Fbid" name="bid" style="display: none">
-				<select name="floor">
+				<input type="text" id="Fbid" name="bid">
+				<select name="floor" id="Dfloor">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
 							<option value="4">4</option>
 							<option value="5">5</option>
-						</select>층
+						</select>층					
+	 
 			<input type="button" id="submit2" value="보기">
 			<a id="domyunselcancel">취소</a>
 			<div id="imgCan" style="width:300px;height:300px;">	
@@ -448,10 +450,10 @@ a:link, a:visited {
 
 					<!-- 업로드된 파일 목록 -->
 					<div class="uploadedList"></div>
-					<input type="text" id="Dbid" name="bid" style="display: none">
+					<input type="text" id="Dbid" name="bid" style="">
 					<input type="hidden" name="drawing" id="data" />
 					<h5 style="text-align: center">층수&nbsp;&nbsp;&nbsp;
-						<select name="floor" id="Dfloor">
+						<select name="floor">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
