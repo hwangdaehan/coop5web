@@ -5,34 +5,31 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         level: 3 // 지도의 확대 레벨
     };  
 
-var positions = [
-			{
-			title :'복현 시영2차 아파트',
-			latlng :new daum.maps.LatLng(35.897 ,128.624)
-		
-				}
-			]
-var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-for (var i = 0; i < positions.length; i ++) {
-    
-    // 마커 이미지의 이미지 크기 입니다
-    var imageSize = new daum.maps.Size(24, 35); 
-    
-    // 마커 이미지를 생성합니다    
-    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
-    
-    // 마커를 생성합니다
-    var marker = new daum.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-        image : markerImage // 마커 이미지 
-    });
-}
 
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption); 
+
+var imageSrc = './resources/img/domyunicon.png', // 마커이미지의 주소입니다    
+imageSize = new daum.maps.Size(20, 20), // 마커이미지의 크기입니다
+imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+   
+//마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+markerPosition = new daum.maps.LatLng(35.89704032046812, 128.6226697293517); // 마커가 표시될 위치입니다
+ 
+//마커를 생성합니다 
+var marker = new daum.maps.Marker({
+position: markerPosition, 
+image: markerImage // 마커이미지 설정 
+});
+
+//마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);  
+
+
+
+
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new daum.maps.services.Geocoder();
@@ -47,12 +44,10 @@ searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 daum.maps.event.addListener(map, 'click', function(mouseEvent) {
     searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
         if (status === daum.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-
-            
+            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';            
             var content ='<div class="btn">' +  
-            			'<a href="#list" id="Blistbtn">보기</a>'+
-						'<a href="#register" id="Bregbtn">건물정보등록</a>' +
+            			'<a href="#list" id="Blistbtn" class="ahref">보기</a>'+
+						'<a href="#register" id="Bregbtn" class="ahref">건물정보등록</a>' +
 						'</div>' +
             			'<div class="bAddr">' + 
                             detailAddr + 
@@ -69,6 +64,23 @@ daum.maps.event.addListener(map, 'click', function(mouseEvent) {
             var a= latlng.getLat();
             var b= latlng.getLng();
             
+//            $("body").on("click","#Blistbtn",function(){
+//                $.ajax({
+//        			url : "listAll",
+//        			data :JSON.stringify ({
+//        				
+//        			addr_new : result[0].road_address.address_name
+//        			
+//        			}) ,
+//        			success : function(data) {
+//
+//        				for (var i = 0; i < data.length; i++) {
+//        					$("#J1").append("<tr><td class='bid'>"+data[i].bid+"</td><td id='Lbname'>"+data[i].bname+"</td><td>" + data[i].addr_new + "</td><td>" + data[i].addr_old + "</td><td>" + data[i].tel+ "</td></tr>");
+//        			
+//        				}
+//        			}
+//        		});
+//            });
             
             $("#test").val(result[0].road_address.address_name);
             $("#test2").val(result[0].address.address_name);

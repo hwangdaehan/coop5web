@@ -21,4 +21,8 @@
 		select drawing from b_floor
 			where floor=#{floor} and bid=#{bid}
 	</select>
+	
+<!-- 	<select id="Blist" resultType="building"> -->
+<!-- 		select * from building where xaxis=#{xaxis} and yaxis =#{yaxis} -->
+<!-- 	</select> -->
 </mapper>

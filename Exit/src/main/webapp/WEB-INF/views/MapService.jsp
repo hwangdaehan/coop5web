@@ -38,6 +38,27 @@
 	margin-left: 10px;
 }
 
+.always {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0);
+	opacity: 0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.always>div {
+	z-index :100;
+}
+ 
+
+
 .content {
 	position: fixed;
 	top: 0;
@@ -108,8 +129,8 @@ th {
 	padding: 10px;
 	z-index: 1000;
 }
-
-div a {
+ 
+.ahref {
 	text-decoration :none;
 	 background-color: #f44336;
     color: white;
@@ -153,6 +174,15 @@ div a {
 #Lbname:hover {
 	color: blue;
 } 
+
+#loginChang {
+	display :inline-block;
+	position : relative;
+	top :10%;
+	left :50%;
+	
+}
+
 </style>
 </head>
 <script>
@@ -162,27 +192,10 @@ div a {
 		// 		//모달창 유지	
 		$.ajax({
 			url : "listAll",
+		
 			success : function(data) {
 
 				for (var i = 0; i < data.length; i++) {
-					/*$("#Lbid")
-							.append(
-									"<p>"+data[i].bid+"</p>");
-					
-					$("#Lbname")
-							.append(
-									"<p>"+data[i].bname+"</p>");
-					$("#Lnew").append(
-							"<p>" + data[i].addr_new
-									+ "</p>");
-					$("#Lold").append(
-							"<p>" + data[i].addr_old
-									+ "</p>");
-					$("#Ltel").append(
-							"<p>" + data[i].tel
-									+ "</p>");
-					$("#Dbid").val(data[i].bid);
-					$("#Fbid").val(data[i].bid);*/
 					$("#J1").append("<tr><td class='bid'>"+data[i].bid+"</td><td id='Lbname'>"+data[i].bname+"</td><td>" + data[i].addr_new + "</td><td>" + data[i].addr_old + "</td><td>" + data[i].tel+ "</td></tr>");
 			
 				}
@@ -338,6 +351,13 @@ div a {
 
 
 <body>
+
+<%-- 	<jsp:include page="header.jsp"></jsp:include>	 --%>
+	 
+	
+	
+	
+	
 	<div id="register" class="content">
 		<div>
 			<div class="modal-header">
@@ -354,14 +374,14 @@ div a {
 					<p id="bNameText">건물명</p>
 					<input type="text" name="bname" id="test4" class="w3-input" />
 				</div>
-				<div id="axisData" style="display:none;">
+				<div id="axisData" style="">
 					<input type="text" id="xaxis" name="xaxis" /> 
 					<input type="text" id="yaxis" name="yaxis" />
 				</div>
 
 				<div class="modal-footer">
 					<input type="submit" value="완료" id="submit"> 
-					<a href="#close" class="btn btn" style="margin-left: 15px">닫기</a>
+					<a href="#close" class="ahref" style="margin-left: 15px">닫기</a>
 				</div>
 			</form>
 		</div>
@@ -386,7 +406,7 @@ div a {
 			</table>
 			<div class="modal-footer">
 				<div id="buttons">
-					<a href="#close" class="btn btn" style="margin-left: 15px">닫기</a>
+					<a href="#close" class="ahref" style="margin-left: 15px">닫기</a>
 				</div>
 			</div>
 		</div>
@@ -396,9 +416,9 @@ div a {
 <!-- 		도면 버튼들 -->
 
 	<div id="modDiv" style="display: none;">
-		<a href="#domyunselect" id="domyunsee">도면보기</a>
-		<a href="#domyun" id="domyuninsert">도면등록</a>
-		<a id="domyuncancel">취소</a>
+		<a href="#domyunselect" id="domyunsee" class="ahref">도면보기</a>
+		<a href="#domyun" id="domyuninsert" class="ahref">도면등록</a>
+		<a id="domyuncancel" class="ahref">취소</a>
 	</div>
 <!-- 			도면 버튼 끝 -->
 
@@ -423,9 +443,9 @@ div a {
 							<option value="4">4</option>
 							<option value="5">5</option>
 						</select>층					
-	 
+	  
 			<input type="button" id="submit2" value="보기">
-			<a id="domyunselcancel">취소</a>
+			<a id="domyunselcancel" class="ahref">취소</a>
 			<div id="imgCan" style="width:300px;height:300px;">	
 			</div>
 		
@@ -463,16 +483,27 @@ div a {
 					</h5>
 
 					<div class="modal-footer">
-						<a href="#close" class="btn btn-danger" style="margin-left: 15px">닫기</a>
+						<a href="#close" class="ahref" style="margin-left: 15px">닫기</a>
 						<input type="submit" style="margin-left: 15px" value="완료" id="submit" />
 					</div>
 				</div>
-			</form>
+			</form>   
 		</div>
+	</div> 
+	
+	
+	
+	<%Object o = session.getAttribute("member");%> 
+	<%if(o != null){%>
+	<div class="always">
+	<div style="width:500px;height:500px;background-color:orange;">
+	ddddd
 	</div>
+	</div> 
+	
+	<%}%>
+	  
 	<!-- 도면 입력 모달창  끝-->
-	
-	
 	<div id="map"
 		style="width: 100%; height: 1000px; position: relative; overflow: hidden;"></div>
 	<div class="hAddr">

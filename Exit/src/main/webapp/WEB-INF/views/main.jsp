@@ -402,12 +402,12 @@ input[type=submit]:hover {
 									</tr>
 									<tr>
 										<td><h2>ID</h2>
-											<input type="text" id="userid"
+											<input type="text" id="userid" name="userid"
 											placeholder="User ID" size="50" autocomplete = "off" autofocus = "autofocus"></td>
 									</tr>
 									<tr>
 										<td><h2>PW</h2>
-											<input type="password" id="userpw"
+											<input type="password" id="userpw" name="userpw"
 											placeholder="User PW" size="50"></td>
 									</tr>
 									<tr>

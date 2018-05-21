@@ -6,7 +6,6 @@ $(document).ready(function(){
 			userpw : $("#userpw").val(),
 			userid : $("#userid").val()
 		};
-		
 		for(var i in json){
 			if(json[i].length == 0){
 				alert(i + " 정보를 입력하세요.");
