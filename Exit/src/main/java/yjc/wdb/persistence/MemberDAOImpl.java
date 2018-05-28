@@ -13,14 +13,14 @@ import yjc.wdb.domain.MemberVO;
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 
-	@Inject // ÁÖÀÔ¹Þ¾Æ¿È
+	@Inject // ï¿½ï¿½ï¿½Ô¹Þ¾Æ¿ï¿½
 	private SqlSession session;
 	private static final String NAMESPACE = "yjc.wdb.mappers.ExitMapper";
 
 	@Override
 	public void insertMember(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("daoÈ®ÀÎ¿ë: ¸ÞÀÏÁÖ¼Ò: "+memberVO.getEmail());
+		System.out.println("daoÈ®ï¿½Î¿ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½: "+memberVO.getEmail());
 		session.insert(NAMESPACE + ".insertMember", memberVO);
 	}
 

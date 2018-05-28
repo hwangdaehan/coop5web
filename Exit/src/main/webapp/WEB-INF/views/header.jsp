@@ -23,7 +23,7 @@
 	z-index: 999;
 	top: 0px;
 	left: 0px;
-	background-color: #170c14;
+	background-color: gray;  
 	opacity :0.5;
 }
 
@@ -100,12 +100,12 @@ input[type=submit] {
 			
 			
 			<%}else{ %>
-			
+			 
 				<!--  로그아웃등등 적는거 -->
 				<a style="float: right"><button id="Logout">Logout</button></a>
-				<a style="float: right; color: #ffffff">${sessionScope.member.userid}님 오신것을 환영합니다.</a>
+				<a style="float: right; color: #ffffff">${sessionScope.member.userid}님 오신것을 환영합니다.</a> 
 			<%} %>
-		</div>
+		</div> 
 
 
 </body>

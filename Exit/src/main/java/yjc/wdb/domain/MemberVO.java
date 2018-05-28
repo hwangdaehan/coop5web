@@ -1,6 +1,7 @@
 package yjc.wdb.domain;
 
 public class MemberVO {
+	private int mno;
 	private String userid;
 	private String userpw;
 	private String nickname;
@@ -51,6 +52,14 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public int getMno() {
+		return mno;
+	}
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
 	
 	@Override
 	public String toString() {

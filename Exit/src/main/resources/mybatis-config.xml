@@ -6,5 +6,6 @@
 	<typeAliases>
 		<typeAlias type="yjc.wdb.domain.building" alias="building" />
 		<typeAlias type="yjc.wdb.domain.b_floor" alias="b_floor" />
+		<typeAlias type="yjc.wdb.domain.enjoy" alias="enjoy" />
 	</typeAliases>
 </configuration>

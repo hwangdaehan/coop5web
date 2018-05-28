@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
+import yjc.wdb.domain.enjoy;
 import yjc.wdb.persistence.BuildingDAO;
 
 
@@ -42,6 +43,18 @@ public class BuildingServiceimpl implements BuildingService {
 	@Override
 	public b_floor ImgSelect(b_floor b) throws Exception {
 		return dao.ImgSelect(b);
+	}
+
+
+	@Override
+	public void enjoyInsert(enjoy enjoy) throws Exception {
+			dao.enjoyInsert(enjoy);
+	}
+
+
+	@Override
+	public List<enjoy> enjoylist() throws Exception {
+		return dao.enjoylist();
 	}
 
 

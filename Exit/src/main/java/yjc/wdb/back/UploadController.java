@@ -27,9 +27,7 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping(value = "uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file, HttpServletRequest req) throws Exception {
-//		System.out.println("originalName : " + file.getOriginalFilename());
-//		System.out.println("size : " + file.getSize());
-//		System.out.println("contentType : " + file.getContentType());
+
 		uploadPath = req.getSession().getServletContext().getRealPath("/") + "resources" + File.separator + "Shopping";
 		return new ResponseEntity<String>(
 				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
@@ -52,7 +50,6 @@ public class UploadController {
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition",
 						"attachment; filename=\"" + new String(fileName.getBytes("utf-8"), "iso-8859-1") + "\"");
-				// headers.add("Content-Disposition", "attachment; filename='"+fileName+"'");
 			}
 
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.OK);

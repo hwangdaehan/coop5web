@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
+import yjc.wdb.domain.enjoy;
 
 @Repository
 public class BuildingDAOimpl implements BuildingDAO {
@@ -42,4 +43,17 @@ public class BuildingDAOimpl implements BuildingDAO {
 		return drawing;
 	}
 
-}
+	@Override
+	public void enjoyInsert(enjoy enjoy) throws Exception {
+		session.insert(NAMESPACE+".enjoyInsert",enjoy);
+		}
+
+	@Override
+	public List<enjoy> enjoylist() throws Exception {
+		List<enjoy> enjoylist =session.selectList(NAMESPACE+".enjoylist");
+		
+		return enjoylist;
+	}
+	
+	}
+

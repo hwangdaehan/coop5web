@@ -38,27 +38,7 @@
 	margin-left: 10px;
 }
 
-.always {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0);
-	opacity: 0;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
-	pointer-events: none;
-	z-index: 2;
-}
-
-.always>div {
-	z-index :100;
-}
  
-
-
 .content {
 	position: fixed;
 	top: 0;
@@ -81,6 +61,8 @@
 }
 
 .content>div {
+
+	
 	position: absolute;
 	top: 20%;
 	left: 75%;
@@ -115,7 +97,7 @@ th {
 	margin-top: -35px;
 	margin-left: -100px;
 	padding: 10px;
-	z-index: 1000;
+	z-index: 2;
 }
 
 #domyunselect {
@@ -146,15 +128,6 @@ th {
 }
 
 
-/* a:link, a:visited { */
-/*     background-color: #f44336; */
-/*     color: white; */
-/*     padding: 3px 2px; */
-/*     text-align: center; */
-/*     text-decoration: none; */
-/*     display: inline-block; */
-/* } */
-
 #submit, #submit2 {
 	 background-color: #f44336; 
     border: none;
@@ -183,18 +156,34 @@ th {
 	
 }
 
+.always {
+	display :inline-block;
+	position :fixed;
+	top :20%;   
+	left :2%;
+	border :3px solid #ff7800;
+	background-color:white; 
+	width :200px;
+	height :300px; 
+	z-index :3;
+	opacity: 0.5; 
+
+}
+
+.always:hover {
+	opacity :100;
+}
+
 </style>
 </head>
 <script>
-	
 	$(document).ready(function() {
 		//   		$('#modalchang').modal({backdrop: 'static'});
 		// 		//모달창 유지	
 		$.ajax({
 			url : "listAll",
-		
+		 
 			success : function(data) {
-
 				for (var i = 0; i < data.length; i++) {
 					$("#J1").append("<tr><td class='bid'>"+data[i].bid+"</td><td id='Lbname'>"+data[i].bname+"</td><td>" + data[i].addr_new + "</td><td>" + data[i].addr_old + "</td><td>" + data[i].tel+ "</td></tr>");
 			
@@ -202,6 +191,16 @@ th {
 			}
 		});
 		
+		$.ajax({
+			url : "enjoylist",
+			success : function(data) {
+
+				for (var i = 0; i < data.length; i++) {
+					$("#J2").append("<tr><td class='bid'>"+data[i].bid+"</td><td class='enjoydescription'>"+data[i].enjoydescription+"</td></tr>");
+			
+				}
+			}
+		});
 		
 		$("#submit2").click(function(){
 			$.ajax({
@@ -215,6 +214,33 @@ th {
 					//alert(data.drawing);
 					  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='600px;'height='300px;'>";
 					  $("#imgCan").append(str);
+				}
+			});
+		});
+		
+		$("#enjoy").click(function(){
+			var f =document.getElementById("enjoydescription");
+			f.type="text"; 
+			
+			var b =document.getElementById("enjoysubmit");
+			b.type="button";
+		});
+		
+		$("#enjoysubmit").click(function(){
+			$.ajax({
+				type :"POST",
+				url : "enjoyInsert",
+				data: {
+					bid :$("#Fbid").val(),
+					mno :$("#Fmid").val(), 
+					enjoydescription:$("#enjoydescription").val()
+				},
+				success:function(data){
+					alert("즐겨찾기에 추가되었습니다.");
+					var f =document.getElementById("enjoydescription");
+					var b =document.getElementById("enjoysubmit");
+					f.type="hidden";
+					b.type="hidden";
 				}
 			});
 		});
@@ -233,6 +259,7 @@ th {
 		});
 		$("#domyunsee").click(function(){
 			$("#domyunselect").show("slow");
+			
 		});
 		$("#domyunselcancel").click(function(){
 			$("#domyunselect").hide("slow");	
@@ -343,21 +370,19 @@ th {
         var pattern = /jpg|gif|png|jpeg/i; // 정규표현식
         return fileName.match(pattern); // 규칙이 맞으면 true
     }
- 
- 
+
   });
-	
 	</script>
 
 
 <body>
 
-<%-- 	<jsp:include page="header.jsp"></jsp:include>	 --%>
+	<jsp:include page="header.jsp"></jsp:include>	
 	 
 	
 	
 	
-	
+	<%Object o = session.getAttribute("member");%> 
 	<div id="register" class="content">
 		<div>
 			<div class="modal-header">
@@ -435,7 +460,8 @@ th {
 <!-- 		도면 보여주는 창 -->
 	<div id="domyunselect" style="display:none;">
 			<form action="ImgSelect" method="GET">
-				<input type="text" id="Fbid" name="bid">
+				<input type="hidden" id="Fbid" name="bid">
+				<input type="hidden" id="Fmid" name="mno" value="${sessionScope.member.mno}"> 
 				<select name="floor" id="Dfloor">
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -446,6 +472,9 @@ th {
 	  
 			<input type="button" id="submit2" value="보기">
 			<a id="domyunselcancel" class="ahref">취소</a>
+			<input type="button" id="enjoy" value="즐겨찾기">
+			<input type="hidden" id="enjoydescription" name="enjoydescription" placeholder="즐찾 설명">
+			<input type="hidden" id="enjoysubmit" style="width:30px;height:30px;">
 			<div id="imgCan" style="width:300px;height:300px;">	
 			</div>
 		
@@ -462,7 +491,6 @@ th {
 			</div>
 			<form action="Domyun" method="post">
 				<div class="modal-body">
-					<%-- <jsp:include page="upload/uploadAjax.jsp"></jsp:include> --%>
 					<!-- 파일을 업로드할 영역 -->
 					<div class="fileDrop">
 						<h4 style="color: gray; text-align: center;">이미지를 드래그 해주세요</h4>
@@ -493,17 +521,23 @@ th {
 	
 	
 	
-	<%Object o = session.getAttribute("member");%> 
 	<%if(o != null){%>
-	<div class="always">
-	<div style="width:500px;height:500px;background-color:orange;">
-	ddddd
-	</div>
-	</div> 
-	
+			<div class="always"> 
+				
+				<div class="modal-header" style="border-bottom:1px solid #ff7800;"><p style="text-align:center;color:#ff7800;">즐겨찾기</p> </div>
+				<div class="modal-body">
+				<table id="J2">
+					<tr>
+					<th> 번호 </th>
+					<th> 이름	 </th>
+					</tr>
+				</table>
+				</div> 
+				<div class="modal-footer"></div>
+				</div> 
 	<%}%>
 	  
-	<!-- 도면 입력 모달창  끝-->
+	<!-- 도면 입력 모달창  끝-->  
 	<div id="map"
 		style="width: 100%; height: 1000px; position: relative; overflow: hidden;"></div>
 	<div class="hAddr">

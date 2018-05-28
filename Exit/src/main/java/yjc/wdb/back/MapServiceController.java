@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
+import yjc.wdb.domain.enjoy;
 import yjc.wdb.service.BuildingService;
 
 @Controller
@@ -36,6 +37,15 @@ public class MapServiceController {
 		return "redirect:MapService";		
 	}
 	
+	@RequestMapping(value="enjoyInsert", method=RequestMethod.POST)
+	public String enjoyInsert(enjoy enjoy,RedirectAttributes rttr)throws Exception {
+				service.enjoyInsert(enjoy);
+				System.out.println("bid:"+enjoy.getBid()+"mno:"+enjoy.getMno()+"description:"+enjoy.getEnjoydescription());
+				rttr.addFlashAttribute("nice","nice");
+				
+		return "redirect:MapService";
+	}
+	
 	@RequestMapping(value="Domyun", method=RequestMethod.POST)
 	public String Dregister(b_floor floor,RedirectAttributes rttr)throws Exception {
 			service.dcreate(floor);
@@ -57,6 +67,12 @@ public class MapServiceController {
 	public b_floor ImgSelect(b_floor b)throws Exception {
 		System.out.println("출력값"+service.ImgSelect(b));		
 		return service.ImgSelect(b);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="enjoylist", method=RequestMethod.GET)
+	public List<enjoy> enjoylist() throws Exception {
+		return service.enjoylist();
 	}
 
 }

@@ -22,6 +22,16 @@
 			where floor=#{floor} and bid=#{bid}
 	</select>
 	
+	
+	<insert id="enjoyInsert">
+		insert into enjoy(bid, mno ,enjoydescription) values (#{bid},#{mno},#{enjoydescription})
+	</insert>
+	
+	<select id="enjoylist" resultType="enjoy">
+		select * from enjoy
+		order by bid desc; 
+	</select>
+	
 <!-- 	<select id="Blist" resultType="building"> -->
 <!-- 		select * from building where xaxis=#{xaxis} and yaxis =#{yaxis} -->
 <!-- 	</select> -->
