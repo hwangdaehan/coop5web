@@ -3,14 +3,15 @@ package yjc.wdb.back;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import yjc.wdb.domain.MemberVO;
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
 import yjc.wdb.domain.enjoy;
@@ -40,7 +41,6 @@ public class MapServiceController {
 	@RequestMapping(value="enjoyInsert", method=RequestMethod.POST)
 	public String enjoyInsert(enjoy enjoy,RedirectAttributes rttr)throws Exception {
 				service.enjoyInsert(enjoy);
-				System.out.println("bid:"+enjoy.getBid()+"mno:"+enjoy.getMno()+"description:"+enjoy.getEnjoydescription());
 				rttr.addFlashAttribute("nice","nice");
 				
 		return "redirect:MapService";
@@ -63,16 +63,36 @@ public class MapServiceController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public List<building> list() throws Exception {
+		
+		
+		return service.list();
+	}
+	
+	@ResponseBody
 	@RequestMapping(value ="ImgSelect", method= RequestMethod.GET)
 	public b_floor ImgSelect(b_floor b)throws Exception {
-		System.out.println("출력값"+service.ImgSelect(b));		
 		return service.ImgSelect(b);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="enjoylist", method=RequestMethod.GET)
-	public List<enjoy> enjoylist() throws Exception {
-		return service.enjoylist();
+	public List<enjoy> enjoylist(HttpSession session) throws Exception {
+		MemberVO m = (MemberVO) session.getAttribute("member");
+		return service.enjoylist(m);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="AxisFind", method= RequestMethod.GET)
+	public building AxisFind(building build) throws Exception {
+		return service.AxisFind(build);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ImgAllSelect", method= RequestMethod.GET)
+	public List<b_floor> ImgAllSelect(b_floor b)throws Exception {
+		return service.ImgAllSelect(b);
 	}
 
 }

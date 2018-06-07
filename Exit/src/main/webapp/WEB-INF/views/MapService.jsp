@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>지도 생성하기</title>
+<title>MapService</title>
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
@@ -12,7 +12,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
-.title {
+.title { 
 	font-weight: bold;
 	display: block;
 }
@@ -74,6 +74,41 @@
 	overflow: auto;
 	z-index: 2;
 }
+
+.content2 {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);  
+	opacity: 0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.content2:target {
+	opacity: 1;
+	pointer-events: auto;
+	z-index: 2;
+}
+.content2>div {
+
+	
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	width: 996px;
+	height: 690px;
+	padding: 2px 5px #f44336 ;
+	border: 1px solid gray;
+	background-color: white;
+	overflow: auto;
+	z-index: 2;
+}
  
 td	p {
 	font-size: x-small;
@@ -101,6 +136,7 @@ th {
 }
 
 #domyunselect {
+	background-color :white;
 	width: 300px;
 	height: 300px;
 	position: absolute;
@@ -128,7 +164,7 @@ th {
 }
 
 
-#submit, #submit2 {
+#submit, #submit2 ,#enjoy {
 	 background-color: #f44336; 
     border: none;
     color: white;
@@ -174,33 +210,56 @@ th {
 	opacity :100;
 }
 
+#edescription {
+	color: #ff7800;
+	font-weight :bold;
+}
+
+
+#mapimage {
+	opacity : 0.5;
+	display :inline-block;
+	position :relative;
+	bottom :100px; 
+	
+}
+
+#mapimage:hover {
+	opacity : 1300;
+}
+
+#imgCan {
+	display :inline-block;
+}
 </style>
 </head>
 <script>
 	$(document).ready(function() {
 		//   		$('#modalchang').modal({backdrop: 'static'});
 		// 		//모달창 유지	
-		$.ajax({
-			url : "listAll",
-		 
-			success : function(data) {
-				for (var i = 0; i < data.length; i++) {
-					$("#J1").append("<tr><td class='bid'>"+data[i].bid+"</td><td id='Lbname'>"+data[i].bname+"</td><td>" + data[i].addr_new + "</td><td>" + data[i].addr_old + "</td><td>" + data[i].tel+ "</td></tr>");
-			
-				}
-			}
-		});
+				$.ajax({
+					url : "listAll",
+				 	data :{
+				 		addr_new :$("#test").val() 
+				 	},
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+							$("#J1").append("<tr><td class='bid'>"+data[i].bid+"</td><td id='Lbname'>"+data[i].bname+"</td><td>" + data[i].addr_new + "</td><td>" + data[i].addr_old + "</td><td>" + data[i].tel+ "</td></tr>");
+						
+						}
+					}
+				});
 		
-		$.ajax({
-			url : "enjoylist",
-			success : function(data) {
-
-				for (var i = 0; i < data.length; i++) {
-					$("#J2").append("<tr><td class='bid'>"+data[i].bid+"</td><td class='enjoydescription'>"+data[i].enjoydescription+"</td></tr>");
-			
-				}
-			}
-		});
+		
+				$.ajax({
+					url : "enjoylist",
+					success : function(data) {
+						for (var i = 0; i < data.length; i++) {
+					$("#J2").append("<tr><td><input type='hidden' value='"+data[i].bid+"' id='enjoybid'><a id='edescription'>"
+										+data[i].enjoydescription+"</a></td><tr>");  
+						}
+					} 
+				});
 		
 		$("#submit2").click(function(){
 			$.ajax({
@@ -211,8 +270,7 @@ th {
 				},
 				success:function(data) {
 					var str="";
-					//alert(data.drawing);
-					  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='600px;'height='300px;'>";
+					  str += "<img src='/MapService/displayFile?fileName="+data.drawing+"' width='600px;'height='300px;' id='imgtag'>";
 					  $("#imgCan").append(str);
 				}
 			});
@@ -241,11 +299,27 @@ th {
 					var b =document.getElementById("enjoysubmit");
 					f.type="hidden";
 					b.type="hidden";
+					$("#domyunselect").hide();
+					
 				}
 			});
 		});
 		
-		
+		$(document.body).on("click", "#enjoyimg", function(){
+			$.ajax({
+				url :"ImgSelect",
+				data : {
+					bid : $("#enjoybid").val(),
+					floor :$("#enjoyfloor").val()
+				},
+				success:function(data){
+					var str="";
+					  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='600px;'height='300px;'>";
+					  $("#imgCan").append(str);
+				}
+			
+			})
+		});
 		
 		$(document.body).on("click", "#Lbname", function(){
 			$("#modDiv").show("slow");
@@ -254,20 +328,35 @@ th {
 			$("#Fbid").val($(this).parent().children(".bid").text());
 			$("#Dbid").val($(this).parent().children(".bid").text());
 		});	
+		
 		$("#domyuncancel").click(function(){
 			$("#modDiv").hide("slow");	
 		});
+		
 		$("#domyunsee").click(function(){
 			$("#domyunselect").show("slow");
-			
+			$("#modDiv").hide();	
 		});
+		
 		$("#domyunselcancel").click(function(){
-			$("#domyunselect").hide("slow");	
+			$("#domyunselect").hide("slow");
+			$("#imgtag").remove();
+			
+			 
 		});
 		
 		$("#submit").click(function(){
 				alert("건물 데이터가 저장되었습니다.");
 		});
+		
+		$("#domyuninsert").click(function(){
+			$("#modDiv").hide(); 	
+		});	
+		
+		$(document.body).on("click","#mainimgcancel",function(){
+			$("#mainimg").remove();
+		});
+		
 		
 	});
 	
@@ -412,7 +501,23 @@ th {
 		</div>
 	</div>
  
- 
+ 	
+ 	
+ 	<div id="imgDiv" class="content2">
+		<div>
+			<div class="modal-header">
+				<div id="displayImg">
+				
+				</div>
+			</div>
+			<div class="modal-footer">
+			<a href="#close" class="ahref" id="mainimgcancel" style="margin-left: 15px;" >닫기</a>
+			</div>
+		</div>
+	</div>
+ 	
+ 	
+ 	
 
 
 	<div id="list" class="content">
@@ -475,7 +580,7 @@ th {
 			<input type="button" id="enjoy" value="즐겨찾기">
 			<input type="hidden" id="enjoydescription" name="enjoydescription" placeholder="즐찾 설명">
 			<input type="hidden" id="enjoysubmit" style="width:30px;height:30px;">
-			<div id="imgCan" style="width:300px;height:300px;">	
+			<div id="imgCan" style="width:600px;height:300px;">	
 			</div>
 		
 		</form>
@@ -499,7 +604,7 @@ th {
 					<!-- 업로드된 파일 목록 -->
 					<div class="uploadedList"></div>
 					<input type="text" id="Dbid" name="bid" style="">
-					<input type="hidden" name="drawing" id="data" />
+					<input type="text" name="drawing" id="data" />
 					<h5 style="text-align: center">층수&nbsp;&nbsp;&nbsp;
 						<select name="floor">
 							<option value="1">1</option>
@@ -528,8 +633,6 @@ th {
 				<div class="modal-body">
 				<table id="J2">
 					<tr>
-					<th> 번호 </th>
-					<th> 이름	 </th>
 					</tr>
 				</table>
 				</div> 

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import yjc.wdb.domain.MemberVO;
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
 import yjc.wdb.domain.enjoy;
@@ -53,8 +54,26 @@ public class BuildingServiceimpl implements BuildingService {
 
 
 	@Override
-	public List<enjoy> enjoylist() throws Exception {
-		return dao.enjoylist();
+	public List<enjoy> enjoylist(MemberVO m) throws Exception {
+		return dao.enjoylist(m);
+	}
+
+
+	@Override
+	public List<building> list() throws Exception {
+		return dao.list();
+	}
+
+
+	@Override
+	public building AxisFind(building build) throws Exception {
+		return dao.AxisFind(build);
+	}
+
+
+	@Override
+	public List<b_floor> ImgAllSelect(b_floor b) throws Exception {
+		return dao.ImgAllSelect(b);
 	}
 
 

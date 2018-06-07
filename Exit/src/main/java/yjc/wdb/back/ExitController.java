@@ -53,13 +53,10 @@ public class ExitController {
 	@RequestMapping(value = "joinform", method = RequestMethod.POST)
 	public String insertMember(MemberVO memberVO, RedirectAttributes rttr) throws Exception {
 		try {
-			System.out.println(memberVO.getEmail());
 			service.insertMember(memberVO);
 			rttr.addFlashAttribute("result", "SUCCESS");
-			// model.addAttribute("result", "SUCCESS");
 		} catch (Exception e) {
 			rttr.addFlashAttribute("result", "Error[" + e.getMessage() + "]");
-			// model.addAttribute("result", "Error[" +e.getMessage()+ "]");
 		}
 		return "redirect:success";
 	}
@@ -73,7 +70,6 @@ public class ExitController {
 	@ResponseBody
 	public int LoginCheck(String userid, String userpw, HttpSession session) throws Exception {
 		MemberVO m = service.loginCheck(userid, userpw);
-		// 0 = ���������� �α���, 1 = ��� ���� ����
 		if (m == null) {
 			return 1;
 		} else {

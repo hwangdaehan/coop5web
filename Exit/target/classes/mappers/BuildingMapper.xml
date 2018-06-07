@@ -17,11 +17,22 @@
 		order by bid desc
 	</select>
 	
+	
+	<select id="ImgAllSelect" resultType="b_floor">
+		select drawing from b_floor
+			where bid=#{bid}
+	</select>
+	
+	
 	<select id="ImgSelect" resultType="b_floor">
 		select drawing from b_floor
 			where floor=#{floor} and bid=#{bid}
 	</select>
 	
+	<select id="list" resultType="building">
+		select * from building
+		where addr_new=#{addr_new}
+	</select>
 	
 	<insert id="enjoyInsert">
 		insert into enjoy(bid, mno ,enjoydescription) values (#{bid},#{mno},#{enjoydescription})
@@ -29,10 +40,12 @@
 	
 	<select id="enjoylist" resultType="enjoy">
 		select * from enjoy
-		order by bid desc; 
+ 		where mno=#{mno}
 	</select>
 	
-<!-- 	<select id="Blist" resultType="building"> -->
-<!-- 		select * from building where xaxis=#{xaxis} and yaxis =#{yaxis} -->
-<!-- 	</select> -->
+	<select id="AxisFind" resultType="building">
+		select * from building
+			where bid = #{bid}
+	</select>
+	
 </mapper>

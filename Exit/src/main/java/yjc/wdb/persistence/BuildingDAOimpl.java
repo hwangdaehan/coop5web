@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
+import yjc.wdb.domain.MemberVO;
 import yjc.wdb.domain.b_floor;
 import yjc.wdb.domain.building;
 import yjc.wdb.domain.enjoy;
@@ -39,7 +40,6 @@ public class BuildingDAOimpl implements BuildingDAO {
 	@Override
 	public b_floor ImgSelect(b_floor b) throws Exception {
 		b_floor drawing = session.selectOne(NAMESPACE + ".ImgSelect", b);
-		System.out.println(drawing);
 		return drawing;
 	}
 
@@ -49,11 +49,33 @@ public class BuildingDAOimpl implements BuildingDAO {
 		}
 
 	@Override
-	public List<enjoy> enjoylist() throws Exception {
-		List<enjoy> enjoylist =session.selectList(NAMESPACE+".enjoylist");
+	public List<enjoy> enjoylist(MemberVO m) throws Exception {
+		
+		List<enjoy> enjoylist =session.selectList(NAMESPACE+".enjoylist", m);
 		
 		return enjoylist;
 	}
-	
+
+	@Override
+	public List<building> list() throws Exception {
+
+		List<building> list =session.selectList(NAMESPACE+".list");
+		return list;
+	}
+
+	@Override
+	public building AxisFind(building build) throws Exception {
+		
+		building  b =session.selectOne(NAMESPACE+".AxisFind",build);
+		return b;
+	}
+
+	@Override
+	public List<b_floor> ImgAllSelect(b_floor b) throws Exception {
+		List<b_floor> ImgAllSelect =session.selectList(NAMESPACE+".ImgAllSelect", b);
+		
+		return ImgAllSelect;
+	}
+
 	}
 
