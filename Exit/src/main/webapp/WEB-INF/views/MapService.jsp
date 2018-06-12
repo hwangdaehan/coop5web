@@ -3,15 +3,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <meta charset="utf-8">
 <title>MapService</title>
-<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
 <style>
+
 .title { 
 	font-weight: bold;
 	display: block;
@@ -101,7 +105,7 @@
 	position: absolute;
 	top: 20%;
 	left: 20%;
-	width: 996px;
+	width: 1200px;
 	height: 690px;
 	padding: 2px 5px #f44336 ;
 	border: 1px solid gray;
@@ -136,8 +140,7 @@ th {
 }
 
 #domyunselect {
-	background-color :white;
-	width: 300px;
+	width: 600px;
 	height: 300px;
 	position: absolute;
 	top: 50%;
@@ -195,24 +198,23 @@ th {
 .always {
 	display :inline-block;
 	position :fixed;
-	top :20%;   
+	top :50%;    
 	left :2%;
-	border :3px solid #ff7800;
-	background-color:white; 
+	border :2px solid rgba(30, 22, 54, 0.6);   
+	background-color:white;  
 	width :200px;
 	height :300px; 
 	z-index :3;
 	opacity: 0.5; 
 
-}
-
+}  
 .always:hover {
 	opacity :100;
 }
 
-#edescription {
-	color: #ff7800;
-	font-weight :bold;
+#edescription:hover {
+	font-weight :bold;   
+	text-decoration :underline gray; 
 }
 
 
@@ -231,7 +233,39 @@ th {
 #imgCan {
 	display :inline-block;
 }
+
+
+#changefloor:hover {
+	font-weight :bold; 
+}
+
+#changefloor:hover {
+	color :#0099FF;
+	font-weight :bold;
+}
+
+#poi-icon {
+ float :right;
+ width :198px;
+ height :640px;
+}
+
+#poi-icon p {
+ 	font-weight :bold;
+
+}
+
+#testb {
+	text-decoration :none;
+	font-weight :bold;
+}
+ 
+#testb:hover {
+	color :blue;
+}
+
 </style>
+ 
 </head>
 <script>
 	$(document).ready(function() {
@@ -256,7 +290,7 @@ th {
 					success : function(data) {
 						for (var i = 0; i < data.length; i++) {
 					$("#J2").append("<tr><td><input type='hidden' value='"+data[i].bid+"' id='enjoybid'><a id='edescription'>"
-										+data[i].enjoydescription+"</a></td><tr>");  
+										+data[i].enjoydescription+"<br><br></a></td><tr>");   
 						}
 					} 
 				});
@@ -355,9 +389,28 @@ th {
 		
 		$(document.body).on("click","#mainimgcancel",function(){
 			$("#mainimg").remove();
+			$("#mainbid").remove();
 		});
 		
 		
+		
+		$("#changefloor").click(function(){	
+			$("#mainimg").remove();
+			$.ajax({
+				url :"ImgSelect",
+				data:{ 
+					bid:$("#nextbid").val(),
+					floor: $("#nextfloor").val()
+				},
+				success:function(data) {
+						alert(data.drawing);
+						var str="";
+						  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='994.9px;' height='640px' id='mainimg'>";
+// 						 str += "<img src='./resources/img/Exdomyun.png' width='994.9px;' height='640px' id='mainimg'>";
+						  $("#displayImg").append(str);
+				}
+			});
+		});
 	});
 	
 	
@@ -461,11 +514,17 @@ th {
     }
 
   });
+		$(function(){
+			$("#gaedan").draggable();	
+			$("#poi-no").draggable();
+			$("#poi-toilet").draggable();
+			$("#poi-warning").draggable();
+			$("#poi-elevator").draggable();
+		});
+	
 	</script>
 
-
 <body>
-
 	<jsp:include page="header.jsp"></jsp:include>	
 	 
 	
@@ -501,16 +560,35 @@ th {
 		</div>
 	</div>
  
- 	
- 	
  	<div id="imgDiv" class="content2">
 		<div>
-			<div class="modal-header">
-				<div id="displayImg">
-				
+			<div class="modal-header" id="feature">
+				<div id="poi-icon">
+					<p style="text-align:center">특이사항</p><br>
+					<p style="text-align:center">지도에 끌어 올리기</p>      
+				<img src="./resources/img/gaedan.png " width="35px" height="35px" id="gaedan">
+				<p>계단</p>
+				<br>
+				<img src="./resources/img/makhim.png " width="35px" height="35px" id="poi-no">
+				<p>통행금지</p>
+				<br>
+				<img src="./resources/img/toilet.png " width="35px" height="35px" id="poi-toilet">
+				<p>화장실</p>
+				<br>
+				<img src="./resources/img/warning.png " width="35px" height="35px" id="poi-warning"> 
+				<p>위험</p>
+				<br>
+				<img src="./resources/img/Elevator.png" width="35px" height="35px" id="poi-elevator">
+				<p>엘리베이터</p>
 				</div>
+				<div id="displayImg" style="width:1000px;">
+				</div>  
 			</div>
 			<div class="modal-footer">
+			<div id="mainfloor" style="display:inline-block">
+			<input type="hidden" id="nextbid">
+			<input type="text" placeholder="입력" size="2" id="nextfloor">&nbsp;<a id="changefloor">층  보기</a>
+			</div>
 			<a href="#close" class="ahref" id="mainimgcancel" style="margin-left: 15px;" >닫기</a>
 			</div>
 		</div>
@@ -579,7 +657,7 @@ th {
 			<a id="domyunselcancel" class="ahref">취소</a>
 			<input type="button" id="enjoy" value="즐겨찾기">
 			<input type="hidden" id="enjoydescription" name="enjoydescription" placeholder="즐찾 설명">
-			<input type="hidden" id="enjoysubmit" style="width:30px;height:30px;">
+			<input type="button" id="enjoysubmit" value="즐찾">
 			<div id="imgCan" style="width:600px;height:300px;">	
 			</div>
 		
@@ -629,12 +707,12 @@ th {
 	<%if(o != null){%>
 			<div class="always"> 
 				
-				<div class="modal-header" style="border-bottom:1px solid #ff7800;"><p style="text-align:center;color:#ff7800;">즐겨찾기</p> </div>
+				<div class="modal-header"><p style="text-align:center; display:inline-block;">즐겨찾기</p> </div>      
 				<div class="modal-body">
 				<table id="J2">
 					<tr>
 					</tr>
-				</table>
+				</table> 
 				</div> 
 				<div class="modal-footer"></div>
 				</div> 
@@ -646,8 +724,6 @@ th {
 	<div class="hAddr">
 		<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
 	</div>
-
-
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=336c57b28c5a12adb24864904a2b70df&libraries=services,clusterer,drawing"></script>
 	<script type="text/javascript"

@@ -44,7 +44,7 @@ daum.maps.event
 
 									marker2.setPosition(mouseEvent.latLng);
 									marker2.setMap(map);
-
+		
 									infowindow.setContent(content);
 									infowindow.open(map, marker2);
 
@@ -100,13 +100,15 @@ $(document).ready(function() {
 				url : "listAll",
 				success : function(data) {
 					for (var i = 0; i < data.length; i++) {
+						
 						// -----마커생성하기
 						var markerPosition = new daum.maps.LatLng(
 								data[i].xaxis, data[i].yaxis);
-						var imageSrc = "./resources/img/bluesky.png"; 
 						var imageSize = new daum.maps.Size(20, 20);
+						var imageSrc = "./resources/img/bluesky.png";
+//						var imageSrc = "./resources/img/redicon.png";
 						var markerImage = new daum.maps.MarkerImage(imageSrc,imageSize);
-
+						
 						// 마커를 생성합니다
 						var wardmaker = new daum.maps.Marker({
 							position : markerPosition,
@@ -122,7 +124,6 @@ $(document).ready(function() {
 						
 					
 						
-						
 			// 마커 위에 커스텀오버레이를 표시합니다
 			// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 			var overlay = new daum.maps.CustomOverlay({
@@ -135,26 +136,25 @@ $(document).ready(function() {
 			// -----마커생성하기
 			
 
-		
 					}
 													
 					$(document.body).on("click", "#testb", function(){
-//						alert($(this).parent().children("#mbid").val());
+						$("#nextbid").val($(this).parent().children("#mbid").val());
 									$.ajax({
 						url :"ImgSelect",
 						data:{
+							
 							bid:$(this).parent().children("#mbid").val(),
 							floor:$("#mfloor").val()
 						},
 						success:function(data) {
-							
 							if(data.drawing ==undefined || data.drawing ==null){
 								alert("도면 데이터가 없습니다.");
 							}else{
 								var str="";
 								  str += "<img src='MapService/displayFile?fileName="+data.drawing+"' width='994.9px;' height='650px' id='mainimg'>";
+//								 str += "<img src='./resources/img/Exdomyun.png' width='994.9px;' height='640px' id='mainimg'>";
 								  $("#displayImg").append(str);
-								  alert(str);	
 							}
 						}
 					});
