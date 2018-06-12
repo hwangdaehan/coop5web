@@ -45,7 +45,7 @@ public class ExitController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "practice";
+		return "main";
 
 	}
 
