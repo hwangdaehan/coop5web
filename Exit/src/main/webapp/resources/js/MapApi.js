@@ -118,8 +118,8 @@ $(document).ready(function() {
 						});
 						
 						var content =
-						'<input type="hidden" value="'+data[i].bid+'" id="mbid" >' +
-						'<input type="hidden" value="'+1+'" id="mfloor" name="mfloor">' +
+						'<input type="text" value="'+data[i].bid+'" id="mbid" >' +
+						'<input type="text" value="'+1+'" id="mfloor" name="mfloor">' +
 			            '<a href="#imgDiv" id="testb">도면</a>';
 						
 					
